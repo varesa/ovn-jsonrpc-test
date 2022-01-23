@@ -52,15 +52,6 @@ pub struct Response {
     pub id: Value,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum Message {
-    /// An RPC request.
-    Request(Request),
-    /// A response to a Request.
-    Response(Response),
-}
-
 fn main() {
     let mut connection = JsonRpcConnection::new("127.0.0.1", 6641);
     let params = vec!["_Server"];
