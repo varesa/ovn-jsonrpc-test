@@ -1,6 +1,6 @@
 use crate::jsonrpc::JsonRpcConnection;
-use serde_json::{json, Value};
 use crate::jsonrpc::Response;
+use serde_json::{json, Value};
 
 pub struct Ovn {
     connection: JsonRpcConnection,
@@ -20,7 +20,9 @@ impl Ovn {
 
     #[allow(dead_code)]
     pub fn print_schema(&mut self) {
-        let schema = self.connection.request("get_schema", Some(json!(["OVN_Northbound"])));
+        let schema = self
+            .connection
+            .request("get_schema", Some(json!(["OVN_Northbound"])));
         print!("{schema:#?}");
     }
 
@@ -29,7 +31,7 @@ impl Ovn {
             "monitor_cond_since",
             Some(json!([
                 "OVN_Northbound",
-                ["monid", "OVN_Northbound"], 
+                ["monid", "OVN_Northbound"],
                 {
                     object_type: [{"columns": ["name"]}]
                 },
@@ -40,7 +42,6 @@ impl Ovn {
 
         return response.result[2][object_type].clone();
     }
-
 
     pub fn list_ls(&mut self) {
         let ls = self.list_objects("Logical_Switch");
