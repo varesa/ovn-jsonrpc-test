@@ -47,15 +47,13 @@ impl JsonRpcConnection {
             method: method.into(),
             params,
         };
-        //let mut payload = String::from(r#"{"id": 1, "method": "get_schema", "params": ["_Server"]}"#);
-        //payload.push('\n');
         self.stream
             .write(&serde_json::to_vec(&payload).unwrap())
             .unwrap();
         self.stream.write(b"\n").unwrap();
         let deserializer = Deserializer::from_reader(self.stream.try_clone().unwrap());
         let decoded: Message = deserializer.into_iter().next().unwrap().unwrap();
-        println!("{decoded:?}");
+        println!("{decoded:#?}");
     }
 }
 
