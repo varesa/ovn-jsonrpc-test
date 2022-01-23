@@ -1,5 +1,4 @@
 use crate::jsonrpc::JsonRpcConnection;
-use crate::jsonrpc::Response;
 use serde_json::{json, Value};
 
 pub struct Ovn {
