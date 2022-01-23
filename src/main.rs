@@ -2,10 +2,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::de::Deserializer;
 use serde_json::json;
 use serde_json::Value;
-use std::{
-    io::{Write},
-    net::TcpStream,
-};
+use std::{io::Write, net::TcpStream};
 
 struct JsonRpcConnection {
     stream: TcpStream,
@@ -64,7 +61,6 @@ pub enum Message {
     Response(Response),
 }
 
-
 fn main() {
     let mut connection = JsonRpcConnection::new("127.0.0.1", 6641);
     let params = vec!["_Server"];
@@ -73,5 +69,4 @@ fn main() {
     let echo = connection.request("echo", Some(json!([])));
     assert!(echo.error.is_null());
     println!("Echo OK!");
-
 }
