@@ -27,7 +27,6 @@ impl JsonRpcConnection {
         self.stream
             .write(&serde_json::to_vec(&request).unwrap())
             .unwrap();
-        self.stream.write(b"\n").unwrap();
         let deserializer = Deserializer::from_reader(self.stream.try_clone().unwrap());
         let response: Response = deserializer.into_iter().next().unwrap().unwrap();
         assert!(response.id == request.id);
