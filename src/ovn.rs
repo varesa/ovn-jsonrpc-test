@@ -17,6 +17,11 @@ impl Ovn {
         assert!(echo.error.is_null());
     }
 
+    pub fn print_schema(&mut self) {
+        let schema = self.connection.request("get_schema", Some(json!(["OVN_Northbound"])));
+        print!("{schema:#?}");
+    }
+
     pub fn list_ls(&mut self) {
         let ls = self.connection.request(
             "monitor_cond_since",
